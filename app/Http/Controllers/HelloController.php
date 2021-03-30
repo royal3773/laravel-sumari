@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use Illuminate\Http\Request;
 
 class HelloController extends Controller
@@ -19,10 +20,14 @@ class HelloController extends Controller
         return view('introduction');
     }
     public function store(Request $request){
-        dump($request->name);
-        dump($request->sex);
-        dump($request->text);
-        dd($request->age);
+        $contact = new Contact();
+        $contact->name = $request->input('name');
+        $contact->age = $request->input('age');
+        $contact->sex = $request->input('sex');
+        $contact->text = $request->input('text');
+        $contact->file  = $request->input('file');
+        
+        $contact->save();
     }
     public function data(){
         return view('data');

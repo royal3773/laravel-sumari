@@ -26,3 +26,5 @@ Route::get('introduction', 'HelloController@introduction');
 Route::post('store','HelloController@store');
 
 Route::get('data', 'HelloController@data');
+
+#Route::resource('contacts', 'ContactController');
