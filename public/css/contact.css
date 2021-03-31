@@ -58,6 +58,16 @@ body {
 #nav ul li a:hover {
 	filter: drop-shadow(10px 10px 10px black);
 }
+/* -------------------- flash -------------------- */
+.flash_message {
+	font-size: 50px;
+	text-align: center;
+	background-color: lavenderblush;
+	line-height: normal;
+	font-family: monospace;
+}
+
+
 /* -------------------- form -------------------- */
 form {
     margin: 20px 0;

@@ -19,16 +19,17 @@ class HelloController extends Controller
     public function introduction(){
         return view('introduction');
     }
-    public function store(Request $request){
-        $contact = new Contact();
-        $contact->name = $request->input('name');
-        $contact->age = $request->input('age');
-        $contact->sex = $request->input('sex');
-        $contact->text = $request->input('text');
-        $contact->file  = $request->input('file');
+    // public function store(Request $request){
+    //     //$requestに入ってきたデータをcontactsテーブルのそれぞれのカラムに入れる処理
+    //     $contact = new Contact();
+    //     $contact->name = $request->input('name');
+    //     $contact->age = $request->input('age');
+    //     $contact->sex = $request->input('sex');
+    //     $contact->text = $request->input('text');
+    //     $contact->file  = $request->input('file');
         
-        $contact->save();
-    }
+    //     $contact->save();
+    // }
     public function data(){
         return view('data');
     }

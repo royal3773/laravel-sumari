@@ -34,18 +34,19 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //受け取ったデータをcontactsテーブルに登録する処理
+    public function store(Request $request){
+        //$requestに入ってきたデータをcontactsテーブルのそれぞれのカラムに入れる処理
         $contact = new Contact();
         $contact->name = $request->input('name');
-        $contact->age = $request->input(age);
+        $contact->age = $request->input('age');
         $contact->sex = $request->input('sex');
-        $contact->string = $request->input('text');
+        $contact->text = $request->input('text');
+        $contact->file  = $request->input('file');
+        
         $contact->save();
 
-        return redirect('/contacts');
-
+        session()->flash('flash_message', '送信が完了しました。');
+        return redirect('contact');
     }
 
     /**

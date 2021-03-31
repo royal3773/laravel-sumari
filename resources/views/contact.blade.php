@@ -20,8 +20,14 @@
                     <li><a href="contact">お問い合わせ</a></li>
                 </ul>
             </div>
+            @if (session('flash_message'))
+            <div class="flash_message">
+                {{ session('flash_message') }}
+            </div>
+            @endif
+
             <form name="form" method="post" action="store">
-                @csrf２
+                @csrf
                  <div class="item">
                      <label class="label">お名前</label>
                      <input class="inputs" type="text" name="name">
@@ -51,6 +57,7 @@
                      <input type="submit" value="送信する" onClick="return check()">
                  </div>
             </form>
+            
         </div>
         <div id="footer">
             <p>&copy; 20xx ○○ All Rights Reserved.</p>

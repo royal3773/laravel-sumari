@@ -23,8 +23,8 @@ Route::get('contact', 'HelloController@contact');
 
 Route::get('introduction', 'HelloController@introduction');
 
-Route::post('store','HelloController@store');
+#Route::post('store','HelloController@store');
 
 Route::get('data', 'HelloController@data');
 
-#Route::resource('contacts', 'ContactController');
+Route::resource('store', 'ContactController');
