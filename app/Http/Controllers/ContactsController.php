@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Contact;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +15,8 @@ class ContactController extends Controller
     public function index()
     {
         //
+        $contacts = Contact::all();
+        return view('data', ['contacts' => $contacts]);
     }
 
     /**
