@@ -14,7 +14,7 @@
                     </p>
             </header>
             
-            <table class="table table-bordered table-info table-responsive-sm">
+            <table class="table table-bordered table-info table-responsive-sm table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">番号</th>
@@ -24,11 +24,19 @@
                         <th scope="col">お問い合わせ内容</th>
                     </tr>
                 </thead>
+                @foreach ($contacts as $contact)
+                <tbody class="table-light">
+                    <th scope="row">{{ $contact->id }}</th>
+                    <td>{{ $contact->name }}</td>
+                    <td>{{ $contact->age }}</td>
+                    <td>{{ $contact->sex }}</td>
+                    <td>{{ $contact->text }}</td>
+                </tbody>
+                @endforeach
             </table>
-            
             <button class="btn btn-primary btn-lg btn-block" onclick="history.back(-1)">戻る</button>
             
-            <footer class="fixed-bottom">
+            <footer class="footer mt-auto">
                 <p>&copy; 20xx ○○ All Rights Reserved.</p>
             </footer>
         </div>

@@ -31,6 +31,7 @@ class HelloController extends Controller
     //     $contact->save();
     // }
     public function data(){
-        return view('data');
+        $contacts = Contact::all();
+        return view('data', ['contacts' => $contacts]);
     }
 }
