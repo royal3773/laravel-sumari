@@ -30,6 +30,7 @@ class HelloController extends Controller
         
     //     $contact->save();
     // }
+    //データをdata.baldeへ渡す
     public function data(){
         $contacts = Contact::all();
         return view('data', ['contacts' => $contacts]);
