@@ -21,11 +21,8 @@ Route::get('introduction', 'HelloController@introduction');
 
 Route::get('contact', 'HelloController@contact');
 
-#Route::post('store','HelloController@store');
-//フォームから受け取ったデータの登録処理
-Route::resource('store', 'ContactsController');
-//データ一覧表示
-Route::get('data', 'HelloController@data');
+//①フォームから受け取ったデータの登録処理　②データを一覧表示させる処理
+Route::resource('data', 'ContactsController');
 //削除処理
-Route::post('data/{id}', 'ContactsController@destroy');
+Route::post('delete/', 'ContactsController@destroy');
 

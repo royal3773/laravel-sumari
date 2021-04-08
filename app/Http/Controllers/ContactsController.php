@@ -14,9 +14,9 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::all();
+        return view('data', ['contacts' => $contacts]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -91,7 +91,8 @@ class ContactsController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        $contact = Contact::finc($contadt->id);
         $contact->delete();
-        return redirect()->route('data');
+        return redirect('data');
     }
 }
