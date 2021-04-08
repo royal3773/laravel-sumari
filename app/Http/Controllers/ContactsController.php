@@ -91,7 +91,8 @@ class ContactsController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        $contact = Contact::finc($contadt->id);
+        $contact = Contact::find($contact->id);
+        dd(var_dump($contact));
         $contact->delete();
         return redirect('data');
     }

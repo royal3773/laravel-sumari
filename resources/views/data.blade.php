@@ -32,10 +32,11 @@
                     <td>{{ $contact->sex }}</td>
                     <td>{{ $contact->text }}</td>
                     <!-- 削除処理 -->
-                    <form action="{{ route('contacts.destroy', $contact) }}" method="DELETE" onsubmit="if(confirm('本当に削除しますか？')) { return true } else {return false };">
+                    <form action="data/{{ $contact->id }}" method="POST" onsubmit="if(confirm('本当に削除しますか？')) { return true } else {return false };">
                     @csrf
-                    @method('delete')
+                    @method('DELETE')
                     <td><button type="submit">削除</button></td>
+                    </form>
                 </tbody>
                 @endforeach
                 

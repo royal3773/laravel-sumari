@@ -24,5 +24,3 @@ Route::get('contact', 'HelloController@contact');
 //①フォームから受け取ったデータの登録処理　②データを一覧表示させる処理
 Route::resource('data', 'ContactsController');
 //削除処理
-Route::post('delete/', 'ContactsController@destroy');
-
