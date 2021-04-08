@@ -31,11 +31,18 @@
                     <td>{{ $contact->age }}</td>
                     <td>{{ $contact->sex }}</td>
                     <td>{{ $contact->text }}</td>
+                    <!-- 削除処理 -->
+                    <form method="POST" onsubmit="if(confirm('本当に削除しますか？')) { return true } else {return false };">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <td><button type="submit">削除</button></td>
                 </tbody>
                 @endforeach
+                
             </table>
             <button class="btn btn-primary btn-lg btn-block" onclick="history.back(-1)">戻る</button>
             
+    </form>
             <footer class="footer mt-auto">
                 <p>&copy; 20xx ○○ All Rights Reserved.</p>
             </footer>

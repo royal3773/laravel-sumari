@@ -15,17 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hello','HelloController@index');
-
 Route::get('top','HelloController@top');
-
-Route::get('contact', 'HelloController@contact');
 
 Route::get('introduction', 'HelloController@introduction');
 
+Route::get('contact', 'HelloController@contact');
+
 #Route::post('store','HelloController@store');
-
+//フォームから受け取ったデータの登録処理
 Route::resource('store', 'ContactsController');
-
+//データ一覧表示
 Route::get('data', 'HelloController@data');
+//削除処理
+Route::post('data/{id}', 'ContactsController@destroy');
 
