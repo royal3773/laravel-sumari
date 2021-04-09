@@ -21,6 +21,6 @@ Route::get('introduction', 'HelloController@introduction');
 
 Route::get('contact', 'HelloController@contact');
 
-//①フォームから受け取ったデータの登録処理　②データを一覧表示させる処理
+//①フォームから受け取ったデータの登録処理　②データを一覧表示させる処理 ③データを削除させる処理
 Route::resource('data', 'ContactsController');
-//削除処理
+

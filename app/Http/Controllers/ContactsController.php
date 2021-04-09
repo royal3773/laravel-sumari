@@ -13,7 +13,7 @@ class ContactsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {//data.blade.phpへお問い合わせのデータを送る
         $contacts = Contact::all();
         return view('data', ['contacts' => $contacts]);
     }
@@ -66,9 +66,10 @@ class ContactsController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contact $contact)
-    {
-        //
+    public function edit($contact_id)
+    {//データを送る
+        $contact = Contact::find($contact_id);
+        return view('edit', ['contact' => $contact]);
     }
 
     /**
@@ -78,9 +79,18 @@ class ContactsController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request,$contact_id)
     {
-        //
+        $contact = Contact::find($contact_id);
+        $contact->name = $request->input('name');
+        $contact->age = $request->input('age');
+        $contact->sex = $request->input('sex');
+        $contact->text = $request->input('text');
+        $contact->file  = $request->input('file');
+        
+        $contact->save();
+        session()->flash('update_message', '更新が完了しました！');
+        return redirect('data/');
     }
 
     /**
@@ -90,10 +100,10 @@ class ContactsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($contact_id)
-    {
+    {//data.blade.phpから送られてきた番号を取り出し削除
         $contact = Contact::find($contact_id);
         $contact->delete();
-        session()->flash('delete_message', '削除が完了しました。');
+        session()->flash('delete_message', '削除が完了しました！');
         return redirect('data');
     }
 }

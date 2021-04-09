@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -13,13 +14,16 @@
                         こちらもよろしければご確認ください。
                     </p>
             </header>
-
+            <!-- フラッシュメッセージを表示 -->
             @if(session('delete_message'))
             <div class='alert alert-success'>
             {{ session('delete_message') }}
+            @else(session('update_message'))
+            <div class='alert alert-success'>
+            {{ session('update_message') }}
             </div>
             @endif
-            
+            <!-- データ一覧を表示 -->
             <table class="table table-bordered table-info table-responsive-sm table table-hover">
                 <thead>
                     <tr>
@@ -37,6 +41,8 @@
                     <td>{{ $contact->age }}</td>
                     <td>{{ $contact->sex }}</td>
                     <td>{{ $contact->text }}</td>
+                    <!-- 編集処理へ移動 -->
+                    <td><a class="btn btn-outline-primary" href="/data/{{ $contact->id }}/edit">更新</a></td>
                     <!-- 削除処理 -->
                     <form action="data/{{ $contact->id }}" method="POST" onsubmit="if(confirm('本当に削除しますか？')) { return true } else {return false };">
                     @csrf
@@ -49,7 +55,6 @@
             </table>
             <button class="btn btn-primary btn-lg btn-block" onclick="history.back(-1)">戻る</button>
             
-    </form>
             <footer class="footer mt-auto">
                 <p>&copy; 20xx ○○ All Rights Reserved.</p>
             </footer>
