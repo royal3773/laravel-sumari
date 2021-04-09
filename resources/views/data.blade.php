@@ -13,6 +13,12 @@
                         こちらもよろしければご確認ください。
                     </p>
             </header>
+
+            @if(session('delete_message'))
+            <div class='alert alert-success'>
+            {{ session('delete_message') }}
+            </div>
+            @endif
             
             <table class="table table-bordered table-info table-responsive-sm table table-hover">
                 <thead>
@@ -35,7 +41,7 @@
                     <form action="data/{{ $contact->id }}" method="POST" onsubmit="if(confirm('本当に削除しますか？')) { return true } else {return false };">
                     @csrf
                     @method('DELETE')
-                    <td><button type="submit">削除</button></td>
+                    <td><button type="submit" class="btn btn-outline-danger">削除</button></td>
                     </form>
                 </tbody>
                 @endforeach

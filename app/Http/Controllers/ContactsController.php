@@ -89,11 +89,11 @@ class ContactsController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contact $contact)
+    public function destroy($contact_id)
     {
-        $contact = Contact::find($contact->id);
-        dd(var_dump($contact));
+        $contact = Contact::find($contact_id);
         $contact->delete();
+        session()->flash('delete_message', '削除が完了しました。');
         return redirect('data');
     }
 }
