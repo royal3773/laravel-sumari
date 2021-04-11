@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contact;
+use App\models\Contact;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
@@ -36,6 +36,7 @@ class ContactsController extends Controller
      */
     public function store(Request $request){
         //$requestに入ってきたデータをcontactsテーブルのそれぞれのカラムに入れる処理
+        dd($request->file('file'));
         $contact = new Contact();
         $contact->name = $request->input('name');
         $contact->age = $request->input('age');
@@ -47,6 +48,13 @@ class ContactsController extends Controller
 
         session()->flash('flash_message', '送信が完了しました。');
         return redirect('contact');
+
+    //         // 送信ファイル情報
+    // $file = $request->file('upfile');
+
+    // // ファイル内容
+    // $content = file_get_contents( $file->getRealPath() );
+
     }
 
     /**

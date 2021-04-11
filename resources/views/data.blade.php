@@ -18,7 +18,8 @@
             @if(session('delete_message'))
             <div class='alert alert-success'>
             {{ session('delete_message') }}
-            @else(session('update_message'))
+            </div>
+            @elseif(session('update_message'))
             <div class='alert alert-success'>
             {{ session('update_message') }}
             </div>

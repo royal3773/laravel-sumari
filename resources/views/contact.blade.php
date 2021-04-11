@@ -26,7 +26,7 @@
             </div>
             @endif
 
-            <form name="form" method="post" action="data">
+            <form name="form" method="post" action="store"　enctype="multipart/form-data">
                 @csrf
                  <div class="item">
                      <label class="label">お名前</label>
