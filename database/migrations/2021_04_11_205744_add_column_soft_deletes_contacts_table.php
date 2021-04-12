@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnFileContactTable extends Migration
+class AddColumnSoftDeletesContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class AddColumnFileContactTable extends Migration
      * @return void
      */
     public function up()
-    {//カラムの値を変更する処理
+    {//論理削除（ソフト削除）実行のためカラムを追加
         Schema::table('contacts', function (Blueprint $table) {
             //
-            $table->string('file')->after('text');
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +28,7 @@ class AddColumnFileContactTable extends Migration
     {
         Schema::table('contacts', function (Blueprint $table) {
             //
+            $table->dropColumn('deleted_at');
         });
     }
 }

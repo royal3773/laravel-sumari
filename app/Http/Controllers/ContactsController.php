@@ -36,25 +36,20 @@ class ContactsController extends Controller
      */
     public function store(Request $request){
         //$requestに入ってきたデータをcontactsテーブルのそれぞれのカラムに入れる処理
-        dd($request->file('file'));
-        $contact = new Contact();
+        $contact_file = $request->file;
+        $contact_file_path = $contact_file->store('public/uploads');
+        dd($contact_file_path);
+        $contact = new Contact;
         $contact->name = $request->input('name');
         $contact->age = $request->input('age');
         $contact->sex = $request->input('sex');
         $contact->text = $request->input('text');
-        $contact->file  = $request->input('file');
+        $contact->file  = $contact_file;
         
         $contact->save();
 
         session()->flash('flash_message', '送信が完了しました。');
         return redirect('contact');
-
-    //         // 送信ファイル情報
-    // $file = $request->file('upfile');
-
-    // // ファイル内容
-    // $content = file_get_contents( $file->getRealPath() );
-
     }
 
     /**
@@ -108,10 +103,27 @@ class ContactsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($contact_id)
-    {//data.blade.phpから送られてきた番号を取り出し削除
+    {//data.blade.phpから送られてきた番号を取り出し削除（ソフトデリート）
         $contact = Contact::find($contact_id);
         $contact->delete();
         session()->flash('delete_message', '削除が完了しました！');
         return redirect('data');
+    }
+    public function softdelete_get()
+    {//論理削除したデータを表示
+        $contacts = Contact::onlyTrashed()->whereNotNull('id')->get();
+        return  view('softdelete_method', ['contacts' => $contacts]);
+    }
+    public function restore($contact_id)
+    {//論理削除したデータを復元する
+        $contact = Contact::onlyTrashed()->find($contact_id)->restore();
+        session()->flash('restore_message', '復元しました！');
+        return redirect('softdelete_method');
+    }
+    public function forcedelete($contact_id) 
+    {//物理削除を行う
+        $contact = Contact::onlyTrashed()->find($contact_id)->forceDelete();
+        session()->flash('forcedelete_message', '完全に削除しました！');
+        return redirect('softdelete_method');
     }
 }

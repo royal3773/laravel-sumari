@@ -30,3 +30,9 @@ Route::delete('data/{id}', 'ContactsController@destroy');
 Route::get('data/{id}/edit', 'ContactsController@edit');
 //update機能
 Route::put('data/{id}', 'ContactsController@update');
+//論理削除（ソフトデリート）をしたデータを一覧する
+Route::get('softdelete_method', 'ContactsController@softdelete_get');
+//論理削除の復元処理
+Route::put('softdelete_method/{id}/restore', 'ContactsController@restore');
+//物理削除の処理
+Route::delete('softdelete_method/{id}/forcedelete', 'ContactsController@forcedelete');

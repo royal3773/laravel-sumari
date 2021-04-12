@@ -12,7 +12,7 @@ class CreateContactsTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {//カラムを作成する処理
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
