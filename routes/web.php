@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 //TOPを表示
 Route::get('top','HelloController@top');
+//test表示
+Route::get('index', 'HelloController@test');
 //自己紹介を表示
 Route::get('introduction', 'HelloController@introduction');
 //お問い合わせフォームを表示
@@ -36,3 +38,5 @@ Route::get('softdelete_method', 'ContactsController@softdelete_get');
 Route::put('softdelete_method/{id}/restore', 'ContactsController@restore');
 //物理削除の処理
 Route::delete('softdelete_method/{id}/forcedelete', 'ContactsController@forcedelete');
+//添付ファイルを個別表示
+Route::get('data/{id}/file', 'ContactsController@file');

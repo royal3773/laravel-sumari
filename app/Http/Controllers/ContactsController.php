@@ -15,7 +15,7 @@ class ContactsController extends Controller
     public function index()
     {//data.blade.phpへお問い合わせのデータを送る
         $contacts = Contact::all();
-        return view('data', ['contacts' => $contacts]);
+        return view('contact_data.data', ['contacts' => $contacts]);
     }
     /**
      * Show the form for creating a new resource.
@@ -24,8 +24,8 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        //
-        return view('contact');
+        //お問い合わせフォームを表示
+        return view('contents.contact');
     }
 
     /**
@@ -36,18 +36,18 @@ class ContactsController extends Controller
      */
     public function store(Request $request){
         //$requestに入ってきたデータをcontactsテーブルのそれぞれのカラムに入れる処理
-        $contact_file = $request->file;
-        $contact_file_path = $contact_file->store('public/uploads');
-        dd($contact_file_path);
         $contact = new Contact;
         $contact->name = $request->input('name');
         $contact->age = $request->input('age');
         $contact->sex = $request->input('sex');
         $contact->text = $request->input('text');
-        $contact->file  = $contact_file;
-        
+        //ファイルが選択されており、アップロードされている状態であれば、ファイルをstorage/public/profilesに保存する
+        if($request->hasFile('file') && $request->file('file')->isValid()){
+            $contact_file_name = $request->file('file')->getClientOriginalName();
+            $contact_file = $request->file('file')->storeAs('public/profiles', $contact_file_name);
+            $contact->file = basename($contact_file);
+        }
         $contact->save();
-
         session()->flash('flash_message', '送信が完了しました。');
         return redirect('contact');
     }
@@ -70,9 +70,9 @@ class ContactsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($contact_id)
-    {//データを送る
+    {//編集用ページへデータを送る
         $contact = Contact::find($contact_id);
-        return view('edit', ['contact' => $contact]);
+        return view('contact_data.edit', ['contact' => $contact]);
     }
 
     /**
@@ -83,7 +83,7 @@ class ContactsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$contact_id)
-    {
+    {//編集したものを更新する
         $contact = Contact::find($contact_id);
         $contact->name = $request->input('name');
         $contact->age = $request->input('age');
@@ -112,7 +112,7 @@ class ContactsController extends Controller
     public function softdelete_get()
     {//論理削除したデータを表示
         $contacts = Contact::onlyTrashed()->whereNotNull('id')->get();
-        return  view('softdelete_method', ['contacts' => $contacts]);
+        return  view('contact_data.softdelete_method', ['contacts' => $contacts]);
     }
     public function restore($contact_id)
     {//論理削除したデータを復元する
@@ -125,5 +125,10 @@ class ContactsController extends Controller
         $contact = Contact::onlyTrashed()->find($contact_id)->forceDelete();
         session()->flash('forcedelete_message', '完全に削除しました！');
         return redirect('softdelete_method');
+    }
+    public function file($contact_id)
+    {//ファイルを個別でみる
+        $contact = Contact::find($contact_id);
+        return view('contact_data.data_file', ['contact' => $contact]);
     }
 }

@@ -8,20 +8,19 @@
     <body class="bg-light">
         <div class="container">
             <header class="py-5 text-center">
-                <h2>申し込みフォーム一覧</h2>
+                <h2>削除済データ</h2>
                     <p class="lead">
-                        こちらは過去に問い合わせいただいた方の内容が記載されております。
-                        こちらもよろしければご確認ください。
+                    こちらは、削除されたデータの一覧です。ここでは、復元と完全に削除することが可能です。
                     </p>
             </header>
             <!-- フラッシュメッセージを表示 -->
-            @if(session('delete_message'))
+            @if(session('restore_message'))
             <div class='alert alert-success'>
-            {{ session('delete_message') }}
+            {{ session('restore_message') }}
             </div>
-            @elseif(session('update_message'))
+            @elseif(session('forcedelete_message'))
             <div class='alert alert-success'>
-            {{ session('update_message') }}
+            {{ session('forcedelete_message') }}
             </div>
             @endif
             <!-- データ一覧を表示 -->
@@ -33,6 +32,7 @@
                         <th scope="col">年齢</th>
                         <th scope="col">性別</th>
                         <th scope="col">お問い合わせ内容</th>
+                        <th scope="col">削除日</th>
                     </tr>
                 </thead>
                 @foreach ($contacts as $contact)
@@ -42,20 +42,24 @@
                     <td>{{ $contact->age }}</td>
                     <td>{{ $contact->sex }}</td>
                     <td>{{ $contact->text }}</td>
-                    <!-- 編集処理へ移動 -->
-                    <td><a class="btn btn-outline-primary" href="/data/{{ $contact->id }}/edit">更新</a></td>
-                    <!-- 削除処理 -->
-                    <form action="data/{{ $contact->id }}" method="POST" onsubmit="if(confirm('本当に削除しますか？')) { return true } else {return false };">
+                    <td>{{ $contact->deleted_at }}</td>
+                    <!-- 復元処理 -->
+                    <form action="softdelete_method/{{ $contact->id }}/restore" method="POST" onsubmit="if(confirm('復元します。よろしいですか？')) { return true } else {return false };">
+                    @csrf
+                    @method('PUT')
+                    <td><button type="submit" class="btn btn-outline-primary">復元</button></td>
+                    </form>
+                    <!-- 完全削除 -->
+                    <form action="softdelete_method/{{ $contact->id }}/forcedelete" method="POST" onsubmit="if(confirm('完全に削除します。よろしいですか？')) { return true } else {return false };">
                     @csrf
                     @method('DELETE')
-                    <td><button type="submit" class="btn btn-outline-danger">削除</button></td>
+                    <td><button type="submit" class="btn btn-outline-danger">完全削除</button></td>
                     </form>
                 </tbody>
                 @endforeach
                 
             </table>
-            <button class="btn btn-primary btn-lg btn-block" onclick="history.back(-1)">戻る</button>
-            
+            <button class="btn btn-primary btn-lg btn-block" type="button" onclick="location.href='data'">お問い合わせ一覧</button>
             <footer class="footer mt-auto">
                 <p>&copy; 20xx ○○ All Rights Reserved.</p>
             </footer>
