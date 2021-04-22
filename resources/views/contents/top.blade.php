@@ -3,7 +3,7 @@
 <!-- タイトルを設定 -->
 @section('title', 'testです')
 <!-- ページ毎のCSSを設定 -->
-@section('css') <link rel="stylesheet" href="{{ asset('css/top.css') }}"> @endsection
+@section('css') <link rel="stylesheet" href="{{ mix('css/top.css') }}"> @endsection
 
     <div id="header">
         <h1><a href="top.html"><img id="desert" src="image/desert.jpg" alt="砂漠" /></a></h1>

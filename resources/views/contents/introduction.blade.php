@@ -3,7 +3,7 @@
 <!-- タイトルを設定 -->
 @section('title', '自己紹介ページ')
 <!-- ページ毎のCSSを設定 -->
-@section('css') <link rel="stylesheet" href="{{ asset('css/introduction.css') }}"> @endsection
+@section('css') <link rel="stylesheet" href="{{ mix('css/introduction.css') }}"> @endsection
 
 <div id="header">
     <h2>自己紹介</h2>

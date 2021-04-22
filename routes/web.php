@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('top');
 });
 //TOPを表示
 Route::get('top','HelloController@top');

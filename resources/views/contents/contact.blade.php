@@ -3,9 +3,9 @@
 <!-- タイトルを設定 -->
 @section('title', 'お問い合わせフォーム')
 <!-- ページ毎のCSSを設定 -->
-@section('css') <link rel="stylesheet" href="{{ asset('css/contact.css') }}"> @endsection
+@section('css') <link rel="stylesheet" href="{{ mix('css/contact.css') }}"> @endsection
 <!-- javascriptを設定 -->
-@section('javascript')<script type="text/javascript" src='{{ asset("js/contact.js") }}'></script> @endsection
+@section('javascript')<script type="text/javascript" src='{{ mix("js/contact.js") }}'></script> @endsection
 
 <div id="header">
     <h2>お問い合わせ</h2>
