@@ -8,7 +8,7 @@
     <body class="bg-light">
         <div class="container">
             <header class="py-5 text-center">
-                <h2>申し込みフォーム一覧</h2>
+                <h2>お問い合わせ内容一覧</h2>
                     <p class="lead">
                         こちらは過去に問い合わせいただいた方の内容が記載されております。
                         こちらもよろしければご確認ください。
