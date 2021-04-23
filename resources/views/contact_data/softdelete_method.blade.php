@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>HTML/CSSの学習</title>
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body class="bg-light">
         <div class="container">
