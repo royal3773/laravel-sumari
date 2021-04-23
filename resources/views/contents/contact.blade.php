@@ -3,9 +3,9 @@
 <!-- タイトルを設定 -->
 @section('title', 'お問い合わせフォーム')
 <!-- ページ毎のCSSを設定 -->
-@section('css') <link rel="stylesheet" href="{{ mix('css/contact.css') }}"> @endsection
+@section('css') <link rel="stylesheet" href="{{ asset('css/contact.css') }}"> @endsection
 <!-- javascriptを設定 -->
-@section('javascript')<script type="text/javascript" src='{{ mix("js/contact.js") }}'></script> @endsection
+@section('javascript')<script type="text/javascript" src='{{ asset("js/contact.js") }}'></script> @endsection
 
 <div id="header">
     <h2>お問い合わせ</h2>
@@ -22,11 +22,11 @@
         @csrf
         <div class="item">
             <label class="label">お名前</label>
-            <input class="inputs" type="text" name="name" value="{{ old('name') }}">
+            <input class="inputs" type="text" name="name">
         </div>
         <div class="item">
             <label class="label">年齢</label>
-            <input class="inputs" type="number" name="age" value="{{ old('age') }}">
+            <input class="inputs" type="number" name="age">
         </div>
         <div class="item">
             <label class="label">性別</label>
@@ -39,7 +39,7 @@
         </div>
         <div class="item">
             <label class="label">お問い合わせ</label>
-            <textarea class="inputs" name="text" value="{{ old('text') }}"></textarea>
+            <textarea class="inputs" name="text"></textarea>
         </div>
         <div class="item">
             <label class="label">添付ファイル</label>
