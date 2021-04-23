@@ -89,7 +89,7 @@ class ContactsController extends Controller
         $contact->age = $request->input('age');
         $contact->sex = $request->input('sex');
         $contact->text = $request->input('text');
-        $contact->file  = $request->input('file');
+        // $contact->file  = $request->input('file');
         
         $contact->save();
         session()->flash('update_message', '更新が完了しました！');
