@@ -12,17 +12,31 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('top');
 });
-
-Route::get('hello','HelloController@index');
-
+//TOPを表示
 Route::get('top','HelloController@top');
-
-Route::get('contact', 'HelloController@contact');
-
+//test表示
+Route::get('index', 'HelloController@test');
+//自己紹介を表示
 Route::get('introduction', 'HelloController@introduction');
-
-Route::post('store','HelloController@store');
-
-Route::get('data', 'HelloController@data');
+//お問い合わせフォームを表示
+Route::get('contact', 'ContactsController@create');
+//お問い合わせフォームで送信されたデータを追加
+Route::post('store', 'ContactsController@store');
+//dataを表示
+Route::get('data', 'ContactsController@index');
+//削除機能
+Route::delete('data/{id}', 'ContactsController@destroy');
+//editを表示
+Route::get('data/{id}/edit', 'ContactsController@edit');
+//update機能
+Route::put('data/{id}', 'ContactsController@update');
+//論理削除（ソフトデリート）をしたデータを一覧する
+Route::get('softdelete_method', 'ContactsController@softdelete_get');
+//論理削除の復元処理
+Route::put('softdelete_method/{id}/restore', 'ContactsController@restore');
+//物理削除の処理
+Route::delete('softdelete_method/{id}/forcedelete', 'ContactsController@forcedelete');
+//添付ファイルを個別表示
+Route::get('data/{id}/file', 'ContactsController@file');
