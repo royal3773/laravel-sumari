@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContactsController extends Controller
 {
@@ -15,6 +16,7 @@ class ContactsController extends Controller
     public function index()
     {//data.blade.phpへお問い合わせのデータを送る
         $contacts = Contact::all();
+        // dd(Storage::disk('s3')->exists('/public'));
         return view('contact_data.data', ['contacts' => $contacts]);
     }
     /**
@@ -44,8 +46,11 @@ class ContactsController extends Controller
         //ファイルが選択されており、アップロードされている状態であれば、ファイルをstorage/public/profilesに保存する
         if($request->hasFile('file') && $request->file('file')->isValid()){
             $contact_file_name = $request->file('file')->getClientOriginalName();
-            $contact_file = $request->file('file')->storeAs('public/profiles', $contact_file_name);
+            $contact_file = $request->file('file')->storeAs('public', $contact_file_name);
             $contact->file = basename($contact_file);
+            $contents = Storage::get('public/'.$contact_file_name); //ファイルを読み取る
+            Storage::disk('s3')->put($contact_file_name, $contents, 'public'); // Ｓ３にアップ
+
         }
         $contact->save();
         session()->flash('flash_message', '送信が完了しました。');
@@ -122,6 +127,8 @@ class ContactsController extends Controller
     }
     public function forcedelete($contact_id) 
     {//物理削除を行う
+        $file = Contact::onlyTrashed()->find($contact_id)->file;
+        $file_delete = Storage::disk('s3')->delete($file);
         $contact = Contact::onlyTrashed()->find($contact_id)->forceDelete();
         session()->flash('forcedelete_message', '完全に削除しました！');
         return redirect('softdelete_method');
@@ -129,6 +136,8 @@ class ContactsController extends Controller
     public function file($contact_id)
     {//ファイルを個別でみる
         $contact = Contact::find($contact_id);
-        return view('contact_data.data_file', ['contact' => $contact]);
+        $filename = $contact->file;
+        $url = Storage::disk('s3')->url($filename);
+        return view('contact_data.data_file', ['contact' => $contact, 'url' => $url]);
     }
 }
