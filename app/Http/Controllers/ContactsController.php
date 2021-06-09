@@ -139,6 +139,5 @@ class ContactsController extends Controller
         $filename = $contact->file;
         $url = Storage::disk('s3')->url($filename);
         return view('contact_data.data_file', ['contact' => $contact, 'url' => $url]);
-        
     }
 }
