@@ -27,4 +27,17 @@ function check(){
         alert("お問い合わせが入力されていません。");
         return false;
     }
+    const regexp = /[\u{3000}-\u{301C}\u{3041}-\u{3093}\u{309B}-\u{309E}]/mu;
+    if(form.file.value != null){
+        let filename = form.file.value
+        let pos = filename.lastIndexOf('.');
+        pos = filename.slice(pos + 1);
+        filename = filename.replace("." + pos, "");
+        filename = filename.split('\\').pop().split('/').pop();
+        for(let i=0; i<filename.length; i++){
+            regexp.test(filename.charAt(i));
+            alert("ファイル名に日本語は使用できません。");
+            return false;
+        }
+    }
 }

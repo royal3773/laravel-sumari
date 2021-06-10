@@ -37,6 +37,8 @@ class ContactsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+        // $this->validate($request, ['file' => alpha_num]);
+        // dd($request);
         //$requestに入ってきたデータをcontactsテーブルのそれぞれのカラムに入れる処理
         $contact = new Contact;
         $contact->name = $request->input('name');
