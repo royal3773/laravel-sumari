@@ -29,6 +29,7 @@ function check(){
     }
     const regexp = /[\u{3000}-\u{301C}\u{3041}-\u{3093}\u{309B}-\u{309E}]/mu;
     if(form.file.value != null){
+        console.log(form.file.value);
         let filename = form.file.value
         let pos = filename.lastIndexOf('.');
         pos = filename.slice(pos + 1);

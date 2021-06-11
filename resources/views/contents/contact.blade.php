@@ -46,7 +46,7 @@
             <input type="file" name="file">
         </div>
         <div class="btn-area">
-            <input id="contact_btn" type="submit" value="送信する" onClick="return check()">
+            <input id="contact_btn" type="button" value="送信する" onClick="return check()">
         </div>
     </form>
 
